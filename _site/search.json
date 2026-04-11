@@ -1,0 +1,87 @@
+[
+  
+    {
+      "title"    : "Welcome to My Blog",
+      "title-lower"    : "welcome to my blog",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Introduce",
+      "tags"     : "",
+      "url"      : "/introduce/2026/04/10/welcome-to-my-blog.html",
+      "date"     : "2026-04-10 11:15:02 +0900",
+      "content"     : "이곳에서 저를 소개합니다.저는 사람 만나는 걸 좋아하고, 그 속에서 배우고 성장하는 걸 즐기는 사람입니다. 새로운 환경이나 다양한 활동에 참여하면서 스스로 기회를 만들어가는 걸 좋아해서 이것저것 많이 시도해보려고 항상 노력하고 있습니다.가끔은 조금 무모하게 일을 벌리는 건 아닌가 싶지만, 그런 과정 속에서 확실히 성장하고 있다는 걸 느끼는 순간들이 정..."
+    } ,
+  
+    {
+      "title"    : "Vision",
+      "title-lower"    : "vision",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Vision",
+      "tags"     : "",
+      "url"      : "/vision/2026/04/09/vision.html",
+      "date"     : "2026-04-09 00:00:00 +0900",
+      "content"     : "이곳에서 저의 진로에 대해 고찰합니다.취업 기준            우선순위      내용                  HIGH      연봉, 함께 일하는 사람              LOW      워라밸, 자율성      목표 회사  삼성SDS  SK쉴더스  안랩지원 공고                              공고 1       ..."
+    } ,
+  
+    {
+      "title"    : "Development Level",
+      "title-lower"    : "development level",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Language",
+      "tags"     : "",
+      "url"      : "/language/2025/04/05/development.html",
+      "date"     : "2025-04-05 15:11:36 +0900",
+      "content"     : "이곳에 개발에 관련된 지식을 기록합니다.기술 스택 &amp;amp; 활용 능력🟢 상 (능숙)  C 언어• 테트리스, 지렁이 게임 등 콘솔 기반 프로젝트 직접 구현• 알고리즘 문제 풀이 경험 (백준 실버 수준)  터미널• CLI 환경에서 컴파일 및 실행에 익숙  Notion• 학습 내용 및 프로젝트 기록 체계적으로 관리🟡 중 (활용 가능)  HTML /..."
+    } ,
+  
+    {
+      "title"    : "Security Level",
+      "title-lower"    : "security level",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "CTFWarGameBugBounty",
+      "tags"     : "",
+      "url"      : "/ctf/wargame/bugbounty/2025/04/04/security.html",
+      "date"     : "2025-04-04 15:11:36 +0900",
+      "content"     : "이곳에 보안 관련된 활동을 기록합니다.예) Top 10 finish, Dreamhack CTF 2025CTF / Wargame / Bug Bounty      2025 드림핵 CTF, 귤 CTF 참가• 웹 해킹 문제 풀이 경험• 실전 문제 해결 경험 확보        학습 방향• 웹 해킹 중심 워게임 풀이 진행 중• 다양한 보안 분야는 기초 탐색 단계  "
+    } ,
+  
+    {
+      "title"    : "Blogs and Documents",
+      "title-lower"    : "blogs and documents",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "BlogDocs",
+      "tags"     : "",
+      "url"      : "/blog/docs/2025/04/03/docs.html",
+      "date"     : "2025-04-03 15:11:36 +0900",
+      "content"     : "이곳에 그동안 작성한 학술 블로그 또는 문서를 기록합니다.Blog &amp;amp; Technical Documentation  Notion 기반 학습 기록 습관 보유• 개념, 문제 풀이, 프로젝트 과정 정리  C 언어 개념 상세 정리  프로젝트 진행 과정 기록• 포트폴리오로 확장 가능• 협업 시 문서 공유 강점• 학습 효율 향상에 도움My Notio..."
+    } ,
+  
+    {
+      "title"    : "Thesis &amp; Activities",
+      "title-lower"    : "thesis &amp; activities",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Activities",
+      "tags"     : "",
+      "url"      : "/activities/2025/04/02/thesis.html",
+      "date"     : "2025-04-02 15:11:36 +0900",
+      "content"     : "이곳에 기술한 논문 또는 대외활동을 기록합니다.Activities🦁 멋쟁이사자처럼 대학 (IT 전국 연합 동아리)  운영진 활동  PE 세션 교육 담당  소프트 스킬 스터디 참여• 리더십 및 협업 역량 강화🛡️ WriteUp (보안 동아리)  1일 1백준 스터디  웹 해킹 학습 진행"
+    } ,
+  
+    {
+      "title"    : "Contest and Certification",
+      "title-lower"    : "contest and certification",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "ContestCertification",
+      "tags"     : "",
+      "url"      : "/contest/certification/2025/04/01/contest-certificate.html",
+      "date"     : "2025-04-01 15:11:36 +0900",
+      "content"     : "이곳에 출전한 공모전의 수상 결과 또는 보유 자격증 정보를 기록합니다.Competitions  교내 커리어 개발 대회 장려상  한이음 공모전 진행 중  공공데이터 활용 아이디어 공모전 진행 중  바이브 코딩 기반 서비스 개발 공모전 진행 중"
+    } 
+  
+]

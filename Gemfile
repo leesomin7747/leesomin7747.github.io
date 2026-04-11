@@ -2,4 +2,4 @@
 source "https://rubygems.org"
 gemspec
 gem "bigdecimal", "~> 4.1"
-gem "jekyll-remote-theme"
+# gem "jekyll-remote-theme"

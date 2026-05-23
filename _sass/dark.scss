@@ -51,10 +51,19 @@
 	}
 
 	a {
-		color: $dark_link_color;
+		color: #fff !important;
+		text-decoration: none;
+		
+		&:visited {
+			color: #fff !important;
+		}
+		
+		&:hover {
+			color: $dark_link_color;
+		}
 	}
 	#title a {
-		color: #fff;
+		color: #fff !important;
 		&:hover {
 			color: $dark_link_color;
 		}

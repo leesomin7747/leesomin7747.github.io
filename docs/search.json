@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "Git 배우기",
+      "title-lower"    : "git 배우기",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Language",
+      "tags"     : "",
+      "url"      : "/language/2026/05/23/git-study.html",
+      "date"     : "2026-05-23 17:00:00 +0900",
+      "content"     : "개요Git은 분산 버전 관리 시스템입니다."
+    } ,
+  
+    {
       "title"    : "Bandit Level 0-1 풀이",
       "title-lower"    : "bandit level 0-1 풀이",
       "sub-titile" : "",
@@ -45,7 +57,7 @@
       "tags"     : "",
       "url"      : "/language/2025/04/05/development.html",
       "date"     : "2025-04-05 15:11:36 +0900",
-      "content"     : "이곳에 개발에 관련된 지식을 기록합니다.기술 스택 &amp;amp; 활용 능력🟢 상 (능숙)  C 언어• 테트리스, 지렁이 게임 등 콘솔 기반 프로젝트 직접 구현• 알고리즘 문제 풀이 경험 (백준 실버 수준)  터미널• CLI 환경에서 컴파일 및 실행에 익숙  Notion• 학습 내용 및 프로젝트 기록 체계적으로 관리🟡 중 (활용 가능)  HTML /..."
+      "content"     : "이곳에 개발에 관련된 지식을 기록합니다.과제 및 프로젝트  Git 배우기"
     } ,
   
     {

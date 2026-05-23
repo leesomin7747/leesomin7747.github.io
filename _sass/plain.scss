@@ -31,8 +31,13 @@ video {
 }
 
 a {
-  color: #000;
+  color: #000 !important;
   transition: color 0.3s;
+  text-decoration: none;
+
+  &:visited {
+    color: #000 !important;
+  }
 
   &:hover {
     color: $linkColor;

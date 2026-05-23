@@ -578,8 +578,12 @@ video {
 }
 
 a {
-  color: #000;
+  color: #000 !important;
   transition: color 0.3s;
+  text-decoration: none;
+}
+a:visited {
+  color: #000 !important;
 }
 a:hover {
   color: #0a59b0;
@@ -1532,11 +1536,20 @@ input:checked + .slider:before {
 }
 .dark a,
 .dark * a {
+  color: #fff !important;
+  text-decoration: none;
+}
+.dark a:visited,
+.dark * a:visited {
+  color: #fff !important;
+}
+.dark a:hover,
+.dark * a:hover {
   color: #4da3ff;
 }
 .dark #title a,
 .dark * #title a {
-  color: #fff;
+  color: #fff !important;
 }
 .dark #title a:hover,
 .dark * #title a:hover {

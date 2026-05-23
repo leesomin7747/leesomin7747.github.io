@@ -1,18 +1,6 @@
 [
   
     {
-      "title"    : "bandit1to2",
-      "title-lower"    : "bandit1to2",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "",
-      "tags"     : "",
-      "url"      : "/2026/05/13/bandit1to2.html",
-      "date"     : "2026-05-13 02:52:52 +0900",
-      "content"     : ""
-    } ,
-  
-    {
       "title"    : "Bandit Level 0-1 풀이",
       "title-lower"    : "bandit level 0-1 풀이",
       "sub-titile" : "",
@@ -21,7 +9,7 @@
       "tags"     : "",
       "url"      : "/security/2026/05/13/bandit-writeup-level0to1.html",
       "date"     : "2026-05-13 02:46:59 +0900",
-      "content"     : "Level 0목표: SSH로 접속하기풀이: 비밀번호 bandit0 입력ssh bandit0@bandit.labs.overthewire.org -p 2220배운 점: …Level 0-1목표: readme 파일 열기풀이: ls로 파일 구조 확인 후 cat readmessh bandit1@bandit.labs.overthewire.org -p 2220배운 ..."
+      "content"     : "Level 0목표: SSH로 접속하기풀이: 비밀번호 bandit0 입력ssh bandit0@bandit.labs.overthewire.org -p 2220배운 점: …Level 0-1목표: readme 파일 열기풀이: ls로 파일 구조 확인 후 cat readmessh bandit0@bandit.labs.overthewire.org -p 2220배운 ..."
     } ,
   
     {

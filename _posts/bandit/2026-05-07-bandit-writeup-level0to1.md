@@ -27,7 +27,7 @@ ssh bandit0@bandit.labs.overthewire.org -p 2220
 **풀이:** ls로 파일 구조 확인 후 cat readme
 
 ```bash
-ssh bandit1@bandit.labs.overthewire.org -p 2220
+ssh bandit0@bandit.labs.overthewire.org -p 2220
 ```
 
 **배운 점:** ...
@@ -41,7 +41,7 @@ ssh bandit1@bandit.labs.overthewire.org -p 2220
 **풀이:** - 는 제대로 인식이 안 되기 때문에, 파일명이라는 것을 명시해주기 위해 cat ./- 사용
 
 ```bash
-ssh bandit2@bandit.labs.overthewire.org -p 2220
+ssh bandit1@bandit.labs.overthewire.org -p 2220
 ```
 
 **배운 점:** ...
@@ -55,7 +55,7 @@ ssh bandit2@bandit.labs.overthewire.org -p 2220
 **풀이:** - 와 공백을 입력하기 위해 "./--spaces in this filename--" 사용
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit2@bandit.labs.overthewire.org -p 2220
 ```
 
 **배운 점:** ...
@@ -84,7 +84,7 @@ file ./-\*를 사용해 속성을 확인함.
 -file07만 아스키코드로 작성된 것을 확인한 후 파일 오픈
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit4@bandit.labs.overthewire.org -p 2220
 ```
 
 ---
@@ -96,7 +96,7 @@ ssh bandit3@bandit.labs.overthewire.org -p 2220
 **풀이:** 파일이 특정되는 조건을 이용해 찾기
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit5@bandit.labs.overthewire.org -p 2220
 find . -type f -size 1033c
 
 ```
@@ -110,7 +110,7 @@ find . -type f -size 1033c
 **풀이:** 파일이 특정되는 조건을 이용해 찾기
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit6@bandit.labs.overthewire.org -p 2220
 find / -type f -size 1033c -user bandit7
 ```
 
@@ -123,7 +123,7 @@ find / -type f -size 1033c -user bandit7
 **풀이:**
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit7@bandit.labs.overthewire.org -p 2220
 grep millionth data.txt
 ```
 
@@ -140,7 +140,7 @@ sort data.txt 같은 문자열끼리 인접하도록 정렬
 uniq -u 딱 한 번만 등장한 줄을 출력
 
 ```bash
-ssh bandit9@bandit.labs.overthewire.org -p 2220
+ssh bandit8@bandit.labs.overthewire.org -p 2220
 sort data.txt | uniq -u
 ```
 
@@ -185,7 +185,7 @@ cat data.txt | base64 -d
 **풀이:**
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit11@bandit.labs.overthewire.org -p 2220
 ```
 
 ---
@@ -197,57 +197,219 @@ ssh bandit3@bandit.labs.overthewire.org -p 2220
 **풀이:**
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit12@bandit.labs.overthewire.org -p 2220
 ```
 
 ![](/assets/images/2026-05-13-10-56-53.png)
 
 ---
 
-## Level 12-13
+## Level 13-14
+
+**목표:** SSH 키를 이용해 다음 단계로 넘어가기
+
+**풀이:**
+
+```bash
+ssh bandit13@bandit.labs.overthewire.org -p 2220
+```
+![](/assets/images/2026-05-13-19-45-32.png)
+---
+
+## Level 14-15
+
+**목표:** 포트 번호 30000에 접속
+
+**풀이:**
+
+```bash
+ssh bandit14@bandit.labs.overthewire.org -p 2220
+nc 0 30000
+# 0: 로컬
+```
+![](/assets/images/2026-05-13-19-55-42.png)
+
+---
+
+## Level 15-16
+
+**목표:** 
+
+**풀이:**
+
+```bash
+ssh bandit15@bandit.labs.overthewire.org -p 2220
+openssl s_client -connect localhost:30001
+8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo
+```
+![](/assets/images/2026-05-13-20-01-19.png)
+
+---
+
+## Level 16-17
 
 **목표:**
 
 **풀이:**
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit16@bandit.labs.overthewire.org -p 2220
+
+kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
 ```
 
 ---
 
-## Level 12-13
 
-**목표:**
+## Level 17-18
+
+**목표:** 두 파일의 차이 찾기
 
 **풀이:**
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit17@bandit.labs.overthewire.org -p 2220
+diff passwords.new passwords.old
+
 ```
+![](/assets/images/2026-05-13-20-37-30.png)
 
 ---
+## Level 18-19
 
-## Level 12-13
+**목표:** SSH로 로그인 하자마자 명령 실행하기
 
-**목표:**
-
-**풀이:**
+**풀이:** 
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme
+
+cGWpMaKXVwDUNgPAVJbWYuGHVn9zl3j8
 ```
+![](/assets/images/2026-05-13-20-45-11.png)
 
 ---
+## Level 19-20
 
-## Level 12-13
+**목표:** 
+
+**풀이:**
+
+```bash
+ssh bandit19@bandit.labs.overthewire.org -p 2220
+ls /etc/bandit_pass/
+./bandit20-do cat /etc/bandit_pass/bandit20
+0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO
+```
+![](/assets/images/2026-05-13-21-00-49.png)
+
+---
+## Level 20-21
 
 **목표:**
 
 **풀이:**
 
 ```bash
-ssh bandit3@bandit.labs.overthewire.org -p 2220
+ssh bandit20@bandit.labs.overthewire.org -p 2220
+
+EeoULMCra2q0dSkYj561DX7s1CpBuOBt
+```
+![](/assets/images/2026-05-13-21-14-08.png)
+
+---
+## Level 21-22
+
+**목표:** cronjob
+
+**풀이:**
+
+```bash
+ssh bandit21@bandit.labs.overthewire.org -p 2220
+
+tRae0UfB9v0UzbCdn9cY0gQnds9GF58Q
+```
+![](/assets/images/2026-05-13-21-24-04.png)
+
+---
+## Level 22-23
+
+**목표:** cronjob
+
+**풀이:**
+
+```bash
+ssh bandit22@bandit.labs.overthewire.org -p 2220
+
+0Zf11ioIjMVN551jX3CmStKLYqjk54Ga
+```
+![](/assets/images/2026-05-13-21-47-45.png)
+
+---
+## Level 23-24
+
+**목표:** cronjob
+
+**풀이:**
+
+```bash
+ssh bandit23@bandit.labs.overthewire.org -p 2220
+
+gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
+```
+
+**STEP1**
+![](/assets/images/2026-05-23-15-06-41.png)
+```
+- \* * * * * 매 1분마다
+- bandit24 권한으로
+- /usr/bin/cronjob_bandit24.sh 를 자동 실행
+```
+
+**STEP2**
+![](/assets/images/2026-05-23-15-10-50.png)
+```
+/var/spool/bandit24/foo 폴더 안에 있는 파일 중 소유자가 bandit23인 파일을 찾아서 bandit24 권한으로 실행한 뒤 삭제함
+```
+
+**STEP3**
+![](/assets/images/2026-05-23-15-23-18.png)
+
+---
+## Level 24-25
+
+**목표:**
+```
+포트 30002에 접속
+bandit24 비밀번호 + 핀코드 형식으로 입력
+핀코드는 0000~9999 전부 시도
+연결은 한 번만 하고 계속 입력 가능 → 스크립트로 자동화해야 함
+```
+
+**풀이:**
+
+```bash
+ssh bandit24@bandit.labs.overthewire.org -p 2220
+
+iCi86ttT4KSNe1armKiwbQNmB3YJP3q4
+```
+**STEP1**
+nano 편집기로 브루트포스 스크립트 작성
+```
+$ nano /tmp/mydir24/brute.sh
+
+#!/bin/bash
+for i in $(seq -w 0000 9999)
+do
+    echo "gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8 $i"
+done | nc localhost 30002
+```
+
+**STEP2**
+![](/assets/images/2026-05-23-16-00-39.png)
+```
+저장 후 실행
+bash /tmp/mydir24/brute.sh
 ```
 
 ---

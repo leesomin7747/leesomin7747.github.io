@@ -9,7 +9,7 @@
       "tags"     : "",
       "url"      : "/language/2026/05/23/git-study.html",
       "date"     : "2026-05-23 17:00:00 +0900",
-      "content"     : "개요Git은 분산 버전 관리 시스템입니다."
+      "content"     : "시작하기 앞서commitbranchcheckoutcherry-pickresetrevertrebasemerge학습 명령어git branch 브랜치치                 | 브랜치 생성git checkout 브랜치치; git commit   | 브랜치치로 이동 후 커밋git merge 브랜치치                  | 브랜치치를 하나로 ..."
     } ,
   
     {
@@ -17,10 +17,10 @@
       "title-lower"    : "bandit level 0-1 풀이",
       "sub-titile" : "",
       "sub-titile-lower" : "",
-      "categories" : "Security",
+      "categories" : "BlogDocs",
       "tags"     : "",
-      "url"      : "/security/2026/05/13/bandit-writeup-level0to1.html",
-      "date"     : "2026-05-13 02:46:59 +0900",
+      "url"      : "/blog/docs/2026/05/07/bandit-writeup-level0to1.html",
+      "date"     : "2026-05-07 17:46:59 +0900",
       "content"     : "Level 0목표: SSH로 접속하기풀이: 비밀번호 bandit0 입력ssh bandit0@bandit.labs.overthewire.org -p 2220배운 점: …Level 0-1목표: readme 파일 열기풀이: ls로 파일 구조 확인 후 cat readmessh bandit0@bandit.labs.overthewire.org -p 2220배운 ..."
     } ,
   
@@ -81,7 +81,7 @@
       "tags"     : "",
       "url"      : "/blog/docs/2025/04/03/docs.html",
       "date"     : "2025-04-03 15:11:36 +0900",
-      "content"     : "이곳에 그동안 작성한 학술 블로그 또는 문서를 기록합니다.Blog &amp;amp; Technical Documentation  Notion 기반 학습 기록 습관 보유• 개념, 문제 풀이, 프로젝트 과정 정리  C 언어 개념 상세 정리  프로젝트 진행 과정 기록• 포트폴리오로 확장 가능• 협업 시 문서 공유 강점• 학습 효율 향상에 도움My Notio..."
+      "content"     : "이곳에 그동안 작성한 학술 블로그 또는 문서를 기록합니다.Blog &amp;amp; Technical Documentation  Bandit WriteUp 작성  "
     } ,
   
     {

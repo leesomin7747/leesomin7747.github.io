@@ -13,8 +13,8 @@
 <meta property="og:title" content="Git 배우기" />
 <meta name="author" content="leesomin" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="개요 Git은 분산 버전 관리 시스템입니다." />
-<meta name="twitter:description" property="og:description" content="개요 Git은 분산 버전 관리 시스템입니다." />
+<meta name="description" content="시작하기 앞서 commit branch checkout cherry-pick reset revert rebase merge" />
+<meta name="twitter:description" property="og:description" content="시작하기 앞서 commit branch checkout cherry-pick reset revert rebase merge" />
 <link rel="canonical" href="http://localhost:4000/language/2026/05/23/git-study.html" />
 <meta property="og:url" content="http://localhost:4000/language/2026/05/23/git-study.html" />
 <meta property="og:site_name" content="Somin’s Blog" />
@@ -24,7 +24,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Git 배우기" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"leesomin"},"dateModified":"2026-05-23T17:00:00+09:00","datePublished":"2026-05-23T17:00:00+09:00","description":"개요 Git은 분산 버전 관리 시스템입니다.","headline":"Git 배우기","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/language/2026/05/23/git-study.html"},"url":"http://localhost:4000/language/2026/05/23/git-study.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"leesomin"},"dateModified":"2026-05-23T17:00:00+09:00","datePublished":"2026-05-23T17:00:00+09:00","description":"시작하기 앞서 commit branch checkout cherry-pick reset revert rebase merge","headline":"Git 배우기","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/language/2026/05/23/git-study.html"},"url":"http://localhost:4000/language/2026/05/23/git-study.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -76,8 +76,52 @@
   <div class="post-meta">
     <div class="post-date"><i class="icon-calendar"></i>May 23, 2026</div><ul class="post-categories"><li>Language</li></ul></div>
   <div class="post">
-    <h2 id="개요">개요</h2>
-<p>Git은 분산 버전 관리 시스템입니다.</p>
+    <h2 id="시작하기-앞서">시작하기 앞서</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>commit
+branch
+checkout
+cherry-pick
+reset
+revert
+rebase
+merge
+</code></pre></div></div>
+
+<h2 id="학습-명령어">학습 명령어</h2>
+<p>git branch 브랜치치                 | 브랜치 생성
+git checkout 브랜치치; git commit   | 브랜치치로 이동 후 커밋
+git merge 브랜치치                  | 브랜치치를 하나로 통합
+git rebase 브랜치치                 | 현재 브랜치를 브랜치치로 통합</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```
+리베이스는 기본적으로 커밋들을 모아서 복사한 뒤, 다른 곳에 떨궈 놓는 것입니다.
+조금 어렵게 느껴질 수 있지만, 리베이스를 하면 커밋들의 흐름을 보기 좋게 한 줄로 만들 수 있다는 장점이 있습니다. 리베이스를 쓰면 저장소의 커밋 로그와 이력이 한결 깨끗해집니다.
+
+merge와 rebase의 차이?
+    ![](/assets/images/2026-05-23-23-45-20.png)
+    ![](/assets/images/2026-05-23-23-46-30.png)
+
+    - merge: 두 브랜치를 합치는 것 (history가 남음)
+    - rebase: 한 브랜치의 커밋을 다른 브랜치 위로 옮기는 것 (history가 일직선이 됨)
+```
+</code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td>git branch 브랜치</td>
+      <td>브랜치 생성</td>
+    </tr>
+    <tr>
+      <td>git chechout 브랜치; git commit</td>
+      <td>브랜치를 커밋</td>
+    </tr>
+    <tr>
+      <td>git merge 브랜치</td>
+      <td>브랜치를 하나로 통합</td>
+    </tr>
+  </tbody>
+</table>
 
   </div></div>
 

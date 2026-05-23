@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Bandit Level 0-1 풀이
-date: 2026-05-12T17:46:59.373Z
-categories: Security
+date: 2026-05-07 17:46:59 +0900
+categories: Blog Docs
 description: bandit0 입력
 ---
 

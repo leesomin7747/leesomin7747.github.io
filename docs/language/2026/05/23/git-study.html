@@ -88,40 +88,61 @@ merge
 </code></pre></div></div>
 
 <h2 id="학습-명령어">학습 명령어</h2>
-<p>git branch 브랜치치                 | 브랜치 생성
-git checkout 브랜치치; git commit   | 브랜치치로 이동 후 커밋
-git merge 브랜치치                  | 브랜치치를 하나로 통합
-git rebase 브랜치치                 | 현재 브랜치를 브랜치치로 통합</p>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">git branch 브랜치치</code></td>
+          <td>브랜치 생성</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">git checkout 브랜치치; git commit</code></td>
+          <td>브랜치치로 이동 후 커밋</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">git merge 브랜치치</code></td>
+          <td>브랜치치를 하나로 통합</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">git rebase 브랜치치</code></td>
+          <td>현재 브랜치를 브랜치치로 통합</td>
+        </tr>
+      </tbody>
+    </table>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```
-리베이스는 기본적으로 커밋들을 모아서 복사한 뒤, 다른 곳에 떨궈 놓는 것입니다.
-조금 어렵게 느껴질 수 있지만, 리베이스를 하면 커밋들의 흐름을 보기 좋게 한 줄로 만들 수 있다는 장점이 있습니다. 리베이스를 쓰면 저장소의 커밋 로그와 이력이 한결 깨끗해집니다.
+    <p>리베이스는 기본적으로 커밋들을 모아서 복사한 뒤, 다른 곳에 떨궈 놓는 것입니다.
+  조금 어렵게 느껴질 수 있지만, 리베이스를 하면 커밋들의 흐름을 보기 좋게 한 줄로 만들 수 있다는 장점이 있습니다. 리베이스를 쓰면 저장소의 커밋 로그와 이력이 한결 깨끗해집니다.</p>
 
-merge와 rebase의 차이?
-    ![](/assets/images/2026-05-23-23-45-20.png)
-    ![](/assets/images/2026-05-23-23-46-30.png)
+    <p>merge와 rebase의 차이?
+      <img src="/assets/images/2026-05-23-23-45-20.png" alt="" />
+      <img src="/assets/images/2026-05-23-23-46-30.png" alt="" /></p>
 
-    - merge: 두 브랜치를 합치는 것 (history가 남음)
-    - rebase: 한 브랜치의 커밋을 다른 브랜치 위로 옮기는 것 (history가 일직선이 됨)
-```
-</code></pre></div></div>
-
-<table>
-  <tbody>
-    <tr>
-      <td>git branch 브랜치</td>
-      <td>브랜치 생성</td>
-    </tr>
-    <tr>
-      <td>git chechout 브랜치; git commit</td>
-      <td>브랜치를 커밋</td>
-    </tr>
-    <tr>
-      <td>git merge 브랜치</td>
-      <td>브랜치를 하나로 통합</td>
-    </tr>
-  </tbody>
-</table>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  - merge: 두 브랜치를 합치는 것 (history가 남음)
+  - rebase: 한 브랜치의 커밋을 다른 브랜치 위로 옮기는 것 (history가 일직선이 됨)
+</code></pre></div>    </div>
+  </li>
+  <li>한번에 한 커밋 위로 움직이는 <code class="language-plaintext highlighter-rouge">^</code></li>
+  <li>한번에 여러 커밋 위로 올라가는 <code class="language-plaintext highlighter-rouge">~&lt;num&gt;</code></li>
+</ul>
 
   </div></div>
 

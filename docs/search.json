@@ -9,7 +9,7 @@
       "tags"     : "",
       "url"      : "/language/2026/05/23/git-study.html",
       "date"     : "2026-05-23 17:00:00 +0900",
-      "content"     : "시작하기 앞서commitbranchcheckoutcherry-pickresetrevertrebasemerge학습 명령어git branch 브랜치치                 | 브랜치 생성git checkout 브랜치치; git commit   | 브랜치치로 이동 후 커밋git merge 브랜치치                  | 브랜치치를 하나로 ..."
+      "content"     : "시작하기 앞서commitbranchcheckoutcherry-pickresetrevertrebasemerge학습 명령어                              git branch 브랜치치          브랜치 생성                                                  git checkout 브랜치치; g..."
     } ,
   
     {

@@ -136,12 +136,32 @@ merge
       <img src="/assets/images/2026-05-23-23-45-20.png" alt="" />
       <img src="/assets/images/2026-05-23-23-46-30.png" alt="" /></p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  - merge: 두 브랜치를 합치는 것 (history가 남음)
-  - rebase: 한 브랜치의 커밋을 다른 브랜치 위로 옮기는 것 (history가 일직선이 됨)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  merge: 두 브랜치를 합치는 것 (history가 남음)
+  rebase: 한 브랜치의 커밋을 다른 브랜치 위로 옮기는 것 (history가 일직선이 됨)
 </code></pre></div>    </div>
   </li>
-  <li>한번에 한 커밋 위로 움직이는 <code class="language-plaintext highlighter-rouge">^</code></li>
-  <li>한번에 여러 커밋 위로 올라가는 <code class="language-plaintext highlighter-rouge">~&lt;num&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">^</code> 한번에 한 커밋 위로 움직임</li>
+  <li><code class="language-plaintext highlighter-rouge">~&lt;num&gt;</code> 한번에 여러 커밋 위로 움직임</li>
+  <li></li>
+  <li><code class="language-plaintext highlighter-rouge">git cherry-pick 브랜치치 브랜치치치</code> HEAD 아래에 브랜치치, 브랜치치치 붙여넣기</li>
+  <li><code class="language-plaintext highlighter-rouge">git commit --amend</code> 커밋 내용 정정</li>
+  <li><code class="language-plaintext highlighter-rouge">git tag v1 브랜치치</code> v1태그를 브랜치치에 달기</li>
+  <li><code class="language-plaintext highlighter-rouge">git describe &lt;ref&gt;</code>
+    <ul>
+      <li>브랜치치가 상대적으로 어디에 위치해있는지 묘사</li>
+      <li>커밋 방향감각 찾는데 도움을 줌</li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;ref&gt;</code>에는 commit을 의미하는 그 어떤 것이든 가능</li>
+      <li>출력 형태:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;tag&gt;-&lt;numCommits&gt;-g&lt;hash&gt;
+
+- &lt;tag&gt; 가장 가까운 부모 태그
+- &lt;numCommits&gt; 그 태그가 몇 커밋 멀리있는지
+- &lt;hash&gt; 묘사하고있는 커밋의 해시
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">git bisect</code> 문제가 되는 커밋을 찾는 명령어</li>
 </ul>
 
   </div></div>

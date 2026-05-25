@@ -141,7 +141,9 @@ merge
 </code></pre></div>    </div>
   </li>
   <li><code class="language-plaintext highlighter-rouge">^</code> 한번에 한 커밋 위로 움직임</li>
-  <li><code class="language-plaintext highlighter-rouge">~&lt;num&gt;</code> 한번에 여러 커밋 위로 움직임</li>
+  <li><code class="language-plaintext highlighter-rouge">^2</code> 여러 부모 커밋이 있을 경우, 해당 번째에 커밋된 부모로 움직임</li>
+  <li><code class="language-plaintext highlighter-rouge">~&lt;num&gt;</code> 한번에 여러 커밋 위로 움직임
+  <code class="language-plaintext highlighter-rouge">git checkout HEAD~^2~2</code> 처럼 한 번에 사용 가능</li>
   <li></li>
   <li><code class="language-plaintext highlighter-rouge">git cherry-pick 브랜치치 브랜치치치</code> HEAD 아래에 브랜치치, 브랜치치치 붙여넣기</li>
   <li><code class="language-plaintext highlighter-rouge">git commit --amend</code> 커밋 내용 정정</li>
@@ -162,6 +164,14 @@ merge
     </ul>
   </li>
   <li><code class="language-plaintext highlighter-rouge">git bisect</code> 문제가 되는 커밋을 찾는 명령어</li>
+  <li><code class="language-plaintext highlighter-rouge">git clone</code> 원격 저장소(github)에서 복사본으로 가져오기</li>
+  <li><code class="language-plaintext highlighter-rouge">git fetch</code> 
+  “ 원격 저장소와 현재 상태를 동기화 “
+    <ul>
+      <li>원격 저장소에는 있지만 로컬에는 없는 커밋들을 다운로드 받음</li>
+      <li>원격 브랜치가 가리키는곳을 업데이트함 (ex. o/main)</li>
+    </ul>
+  </li>
 </ul>
 
   </div></div>

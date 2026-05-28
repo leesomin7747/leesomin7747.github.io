@@ -25,6 +25,18 @@
     } ,
   
     {
+      "title"    : "Thesis Review",
+      "title-lower"    : "thesis review",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Activities",
+      "tags"     : "",
+      "url"      : "/activities/2026/05/02/thesis-review.html",
+      "date"     : "2026-05-02 15:11:36 +0900",
+      "content"     : "웹사이트 챗봇, 생각보다 많이 뚫려있었다논문: When AI Meets the Web: Prompt Injection Risks in Third-Party AI Chatbot Plugins학회: IEEE S&amp;amp;P 2026저자: Yigitcan Kaya, Anton Landerer, Stijn Pletinckx, Michelle Zimmer..."
+    } ,
+  
+    {
       "title"    : "Welcome to My Blog",
       "title-lower"    : "welcome to my blog",
       "sub-titile" : "",
@@ -33,7 +45,7 @@
       "tags"     : "",
       "url"      : "/introduce/2026/04/10/welcome-to-my-blog.html",
       "date"     : "2026-04-10 11:15:02 +0900",
-      "content"     : "이곳에서 저를 소개합니다.저는 사람 만나는 걸 좋아하고, 그 속에서 배우고 성장하는 걸 즐기는 사람입니다. 새로운 환경이나 다양한 활동에 참여하면서 스스로 기회를 만들어가는 걸 좋아해서 이것저것 많이 시도해보려고 항상 노력하고 있습니다.가끔은 조금 무모한 것이 아닌가 싶지만, 그런 과정 속에서 확실히 성장하고 있다는 걸 느끼는 순간들이 정말 좋습니다...."
+      "content"     : "이곳에서 저를 소개합니다."
     } ,
   
     {
@@ -93,7 +105,7 @@
       "tags"     : "",
       "url"      : "/activities/2025/04/02/thesis.html",
       "date"     : "2025-04-02 15:11:36 +0900",
-      "content"     : "이곳에 기술한 논문 또는 대외활동을 기록합니다.Activities🦁 멋쟁이사자처럼 대학 (IT 전국 연합 동아리)  운영진 활동  PE 세션 교육 담당  소프트 스킬 스터디 참여• 리더십 및 협업 역량 강화🛡️ WriteUp (보안 동아리)  1일 1백준 스터디  웹 해킹 학습 진행"
+      "content"     : "이곳에 기술한 논문 또는 대외활동을 기록합니다.Activities🦁 멋쟁이사자처럼 대학 (IT 전국 연합 동아리)  운영진 활동  PE 세션 교육 담당  소프트 스킬 스터디 참여• 리더십 및 협업 역량 강화🛡️ WriteUp (보안 동아리)  1일 1백준 스터디  웹 해킹 학습 진행THESIS  Thesis Review"
     } ,
   
     {

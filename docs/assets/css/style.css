@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap");
 @font-face {
   font-family: "fontello";
   src: url("../font/fontello.eot?37382099");
@@ -562,7 +563,7 @@ pre.highlight, code {
 }
 
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   line-height: 1.2em;
   margin: 0;
@@ -739,7 +740,7 @@ main .about .about-header .about-title {
 }
 .navigation ul a {
   display: block;
-  font-family: "Merriweather";
+  font-family: "Noto Sans KR";
   text-align: center;
   padding: 1rem 0;
   text-decoration: none;
@@ -835,17 +836,17 @@ main .about .about-header .about-title {
 }
 
 .post {
-  font-family: "Merriweather", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 300;
   color: #222;
   line-height: 1.9em;
 }
 .post p {
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 18px;
 }
 .post li {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 2em;
 }
 .post a {

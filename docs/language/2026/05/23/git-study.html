@@ -100,19 +100,21 @@ merge
     <p>리베이스는 기본적으로 커밋들을 모아서 복사한 뒤, 다른 곳에 떨궈 놓는 것입니다.
   조금 어렵게 느껴질 수 있지만, 리베이스를 하면 커밋들의 흐름을 보기 좋게 한 줄로 만들 수 있다는 장점이 있습니다. 리베이스를 쓰면 저장소의 커밋 로그와 이력이 한결 깨끗해집니다.</p>
 
-    <p>merge와 rebase의 차이?
-      <img src="/assets/images/2026-05-23-23-45-20.png" alt="" />
-      <img src="/assets/images/2026-05-23-23-46-30.png" alt="" /></p>
+    <ul>
+      <li>
+        <p>merge와 rebase의 차이?
+  <img src="/assets/images/2026-05-23-23-45-20.png" alt="" />
+  <img src="/assets/images/2026-05-23-23-46-30.png" alt="" /></p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  merge: 두 브랜치를 합치는 것 (history가 남음)
-  rebase: 한 브랜치의 커밋을 다른 브랜치 위로 옮기는 것 (history가 일직선이 됨)
-</code></pre></div>    </div>
+        <p>merge: 두 브랜치를 합치는 것 (history가 남음)
+  rebase: 한 브랜치의 커밋을 다른 브랜치 위로 옮기는 것 (history가 일직선이 됨)</p>
+      </li>
+    </ul>
   </li>
   <li><code class="language-plaintext highlighter-rouge">^</code> 한번에 한 커밋 위로 움직임</li>
   <li><code class="language-plaintext highlighter-rouge">^2</code> 여러 부모 커밋이 있을 경우, 해당 번째에 커밋된 부모로 움직임</li>
   <li><code class="language-plaintext highlighter-rouge">~&lt;num&gt;</code> 한번에 여러 커밋 위로 움직임
   <code class="language-plaintext highlighter-rouge">git checkout HEAD~^2~2</code> 처럼 한 번에 사용 가능</li>
-  <li></li>
   <li><code class="language-plaintext highlighter-rouge">git cherry-pick 브랜치치 브랜치치치</code> HEAD 아래에 브랜치치, 브랜치치치 붙여넣기</li>
   <li><code class="language-plaintext highlighter-rouge">git commit --amend</code> 커밋 내용 정정</li>
   <li><code class="language-plaintext highlighter-rouge">git tag v1 브랜치치</code> v1태그를 브랜치치에 달기</li>

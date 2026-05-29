@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>퍼징(Fuzzing) 입문: 개념부터 주요 퍼저들의 동작 방식 비교까지</title>
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>퍼징(Fuzzing) 입문: 개념부터 주요 퍼저들의 동작 방식 비교까지 | Somin’s Blog</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="퍼징(Fuzzing) 입문: 개념부터 주요 퍼저들의 동작 방식 비교까지" />
+<meta name="author" content="leesomin" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="보안 교육 미션으로 퍼징(fuzzing) 을 공부하게 됐다. 처음 듣는 단어였고 보안·CS 기초도 탄탄하지 않은 입장이라, “도대체 이게 뭐고 왜 중요한지”, “퍼저(fuzzer)들은 서로 뭐가 다른지”를 바닥부터 파보기로 했다. 이 글은 그 과정에서 정리한 내용이다. 전문 용어는 처음 나올 때마다 바로바로 풀어서 붙였으니, 사전 지식이 없어도 따라올 수 있을 것이다." />
+<meta name="twitter:description" property="og:description" content="보안 교육 미션으로 퍼징(fuzzing) 을 공부하게 됐다. 처음 듣는 단어였고 보안·CS 기초도 탄탄하지 않은 입장이라, “도대체 이게 뭐고 왜 중요한지”, “퍼저(fuzzer)들은 서로 뭐가 다른지”를 바닥부터 파보기로 했다. 이 글은 그 과정에서 정리한 내용이다. 전문 용어는 처음 나올 때마다 바로바로 풀어서 붙였으니, 사전 지식이 없어도 따라올 수 있을 것이다." />
+<link rel="canonical" href="http://localhost:4000/blog/docs/2026/05/29/fuzzing.html" />
+<meta property="og:url" content="http://localhost:4000/blog/docs/2026/05/29/fuzzing.html" />
+<meta property="og:site_name" content="Somin’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-29T00:00:00+09:00" />
+<meta property="article:modified_time" content="2026-05-29T00:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="퍼징(Fuzzing) 입문: 개념부터 주요 퍼저들의 동작 방식 비교까지" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"leesomin"},"dateModified":"2026-05-29T00:00:00+09:00","datePublished":"2026-05-29T00:00:00+09:00","description":"보안 교육 미션으로 퍼징(fuzzing) 을 공부하게 됐다. 처음 듣는 단어였고 보안·CS 기초도 탄탄하지 않은 입장이라, “도대체 이게 뭐고 왜 중요한지”, “퍼저(fuzzer)들은 서로 뭐가 다른지”를 바닥부터 파보기로 했다. 이 글은 그 과정에서 정리한 내용이다. 전문 용어는 처음 나올 때마다 바로바로 풀어서 붙였으니, 사전 지식이 없어도 따라올 수 있을 것이다.","headline":"퍼징(Fuzzing) 입문: 개념부터 주요 퍼저들의 동작 방식 비교까지","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/docs/2026/05/29/fuzzing.html"},"url":"http://localhost:4000/blog/docs/2026/05/29/fuzzing.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/portfolio.png" alt="Lee Somin" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Lee Somin</a>
+      </h2>
+      </div><p class="tagline">Developer / Student of USW</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://github.com/leesomin7747" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://instagram.com/liicowmin" target="_blank">
+          <li>
+            <i class="icon-instagram"></i>
+          </li>
+        </a><a href="mailto:leesomin7747@naver.com" target="_blank">
+          <li>
+            <i class="icon-mail-alt"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2026</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/blog/docs/2026/05/29/fuzzing.html">
+    <h2 class="post-title">퍼징(Fuzzing) 입문: 개념부터 주요 퍼저들의 동작 방식 비교까지</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>May 29, 2026</div><ul class="post-categories"><li>Blog</li><li>Docs</li></ul></div>
+  <div class="post">
+    <p><br />
+보안 교육 미션으로 <strong>퍼징(fuzzing)</strong> 을 공부하게 됐다. 처음 듣는 단어였고 보안·CS
+기초도 탄탄하지 않은 입장이라, “도대체 이게 뭐고 왜 중요한지”, “퍼저(fuzzer)들은
+서로 뭐가 다른지”를 바닥부터 파보기로 했다. 이 글은 그 과정에서 정리한 내용이다.
+전문 용어는 처음 나올 때마다 바로바로 풀어서 붙였으니, 사전 지식이 없어도 따라올 수
+있을 것이다.
+<br /></p>
+
+<p>흐름은 이렇게 잡았다.</p>
+
+<ol>
+  <li>퍼징의 의미와 정의, 종류, 알아야 할 개념들</li>
+  <li>퍼저의 역사와 발전 과정</li>
+  <li>현대의 주요 퍼저 소개와 차이점 (동작 방식 중심, 장단점 포함)
+<br /><br /></li>
+</ol>
+
+<hr />
+
+<h1 id="1-퍼징이란-무엇인가">1. 퍼징이란 무엇인가</h1>
+
+<h2 id="한-줄-정의">한 줄 정의</h2>
+
+<blockquote>
+  <p><strong>퍼징(Fuzzing)</strong></p>
+
+  <p>프로그램에 일부러 이상하고 예상치 못한 입력을 자동으로 엄청나게
+많이 집어넣어서, 프로그램이 뻗어버리거나(crash) 오작동하는 지점을 찾아내는 자동화된
+테스트 기법.
+<br /><br /></p>
+</blockquote>
+
+<hr />
+<h2 id="자판기로-이해하기">자판기로 이해하기</h2>
+
+<p>자판기를 테스트한다고 해보자. 보통의 품질 검사는 “1000원 넣고 → 콜라 버튼 → 콜라
+나옴”처럼 <strong>정상적인 사용법</strong>을 확인한다. <br />
+<br />
+반면 퍼징은 다음과 같다.</p>
+
+<ul>
+  <li>동전 투입구에 단추를 쑤셔넣어 본다</li>
+  <li>버튼 세 개를 동시에 누른다</li>
+  <li>거스름돈 레버를 백 번 빠르게 흔든다</li>
+  <li>지폐를 반쯤 넣었다 뺀다 …</li>
+</ul>
+
+<p>이렇게 <strong>막무가내로 무작위 입력을 쏟아붓다 보면</strong>, 만든 사람이 미처 생각 못 한
+조합에서 자판기가 멈추거나 공짜로 음료를 토해내는 순간이 나온다. 그 “이상 동작”이
+바로 버그이고, 소프트웨어에서는 종종 <strong>보안 취약점</strong>이 된다.
+<br /><br /></p>
+
+<hr />
+
+<h2 id="왜-일반-테스트보다-강력한가">왜 일반 테스트보다 강력한가</h2>
+
+<p>개발자는 보통 “입력이 제대로 들어왔을 때”를 가정하고 코드를 짜고 테스트한다(이른바
+<em>happy path</em>, 행복한 경로). 그런데 심각한 보안 버그는 대부분 <strong>잘못된 입력을 처리하는
+구석진 코드</strong>에 숨어 있다. 공격자도, 현실의 망가진 데이터도 정상 입력만 보내주지 않기
+때문이다. 퍼징은 사람이 상상하지 못하는 입력을 <strong>시간당 수백만 건</strong> 자동으로 던지면서
+그 구석을 뒤집는다.
+<br /><br /></p>
+
+<hr />
+
+<h2 id="퍼저의-동작-방식">퍼저의 동작 방식</h2>
+
+<p>퍼저(fuzzer, 퍼징을 수행하는 프로그램)는 결국 아래 다섯 단계를 미친 속도로 반복한다.</p>
+
+<ol>
+  <li><strong>입력 생성</strong> — 테스트할 데이터(테스트 케이스)를 만든다</li>
+  <li><strong>실행</strong> — 그 입력으로 대상 프로그램을 돌린다</li>
+  <li><strong>관찰</strong> — 뻗었는지, 멈췄는지, 메모리 오류가 났는지 감시한다</li>
+  <li><strong>(선택) 피드백</strong> — “이 입력이 새로운 코드 영역을 건드렸나”를 보고 다음 입력에 반영</li>
+  <li><strong>저장·정리</strong> — 뻗게 만든 입력을 따로 보관하고 최소한의 형태로 줄인다
+<br /><br /></li>
+</ol>
+
+<hr />
+
+<h2 id="알아야-할-핵심-개념들">알아야 할 핵심 개념들</h2>
+
+<blockquote>
+  <p><strong>크래시(crash)</strong>  <br />
+프로그램이 하면 안 되는 짓(예: 남의 메모리 영역 접근)을 해서
+운영체제가 강제 종료시키는 것. 보안 버그의 신호일 때가 많다.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>메모리 안전 버그</strong><br />
+C/C++ 같은 언어에서 흔하다.</p>
+  <ul>
+    <li><em>버퍼 오버플로우:</em> 10칸짜리 상자에 15개를 욱여넣어 옆 상자를 망가뜨리는 것</li>
+    <li><em>use-after-free:</em> 이미 반납해 비운 사물함을 계속 쓰는 것</li>
+  </ul>
+
+  <p>이런 게 해킹의 출발점이 된다.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>새니타이저(Sanitizer, 예: ASan)</strong><br />
+프로그램에 미리 심어두는 “연기 감지기”.<br />
+평소엔 조용히 넘어갈 미세한 메모리 오염을 <strong>요란한 크래시로 바꿔줘서</strong> 퍼저가 알아챌
+수 있게 해준다. 퍼징의 탐지력을 크게 올려주는 짝꿍이다.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>코드 커버리지(coverage)</strong><br />
+프로그램의 어느 줄/분기를 실행했는지 나타내는 “지도”.  <br />
+퍼저가 “내가 새 땅을 밟았나”를 판단하는 기준이 된다. 특히 “A 지점에서 B 지점으로
+넘어갔다”는 흐름의 연결선을 <strong>엣지(edge)</strong> 라고 부른다.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>코퍼스(corpus)와 시드(seed)</strong></p>
+  <ul>
+    <li><strong>코퍼스:</strong> 퍼저가 모아둔 “쓸모 있는 입력 모음”</li>
+    <li><strong>시드:</strong>  처음에 사람이 쥐여주는 “예시 입력”, 이미지 파서를 퍼징한다면 정상 PNG 파일
+몇 개를 시드로 준다.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>하니스(harness)</strong><br />
+퍼저가 만든 바이트 뭉치를 “검사하고 싶은 함수”에 연결해주는
+작은 어댑터 코드.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>계측(instrumentation)</strong><br />
+프로그램의 원래 동작은 그대로 둔 채 실행 정보를
+측정·기록하기 위한 추가 코드를 코드 곳곳에 끼워 넣는 작업.<br />
+공장 컨베이어 벨트
+중간중간에 “몇 개 통과했는지 세는 카운터”를 다는 것과 같다. 퍼저는 이 센서들이 보내는
+신호를 모아 커버리지 지도를 그린다.
+<br /><br /></p>
+</blockquote>
+
+<hr />
+<h2 id="퍼징의-종류">퍼징의 종류</h2>
+
+<p>퍼징은 한 가지 기준으로만 나뉘지 않고 여러 축이 겹친다.
+<br /></p>
+
+<h3 id="1-입력을-만드는-방식">(1) 입력을 만드는 방식</h3>
+
+<ul>
+  <li><strong>변형 기반(Mutation-based)</strong><br />
+정상 입력(시드)을 가져다 비트를 뒤집거나 바이트를
+끼워넣는 식으로 살짝씩 망가뜨린다. 입력 형식을 몰라도 되고 설정이 쉽다.</li>
+  <li><strong>생성/문법 기반(Generation/Grammar-based)</strong><br />
+입력 형식의 “문법”을 미리 알려주고
+그에 맞춰 처음부터 입력을 만들어낸다. JavaScript, HTML, PDF처럼 <strong>구조가 복잡한
+입력</strong>에 강하다.</li>
+</ul>
+
+<p>비유하자면, 변형 기반은 <strong>멀쩡한 문장을 오타투성이로 만드는 것</strong>, 생성 기반은 <strong>문법 규칙을 보고 새 문장을 작문하는 것</strong>이다.
+<br /><br /></p>
+
+<hr />
+<h3 id="2-대상-내부를-얼마나-들여다보는가">(2) 대상 내부를 얼마나 들여다보는가</h3>
+
+<ul>
+  <li><strong>블랙박스</strong><br />
+내부를 전혀 모르고 입력만 던지고 결과만 본다. 단순하지만 비효율적.</li>
+  <li><strong>화이트박스</strong><br />
+소스 전체를 분석해 “어떤 입력이 어느 경로로 가는지”까지 추론한다.
+강력하지만 무겁고 느리다.</li>
+  <li><strong>그레이박스</strong><br />
+가벼운 계측으로 커버리지만 얻어 방향을 잡는다. <strong>요즘의 표준 방식.</strong>
+<br /><br /></li>
+</ul>
+
+<hr />
+<h3 id="3-커버리지-가이드--퍼징을-강하게-만든-핵심-아이디어">(3) 커버리지 가이드 — 퍼징을 강하게 만든 핵심 아이디어</h3>
+
+<p>변형한 입력이 <strong>전에 못 가본 코드</strong>를 건드리면 흥미롭게 여겨 보관하고, 그걸 다시 변형해
+더 깊이 파고든다.<br />
+무작위 던지기가 아니라 <strong>진화(유전 알고리즘)처럼 점점 깊은 코드로
+침투</strong>하는 것이다.<br />
+<br /><br /></p>
+
+<hr />
+<hr />
+
+<h1 id="2-퍼저의-역사와-발전-과정">2. 퍼저의 역사와 발전 과정</h1>
+
+<p>퍼징의 발전사는 한마디로 <strong>“어떻게 하면 무작위 던지기를 덜 무작위하게, 더 똑똑하게
+만들까”</strong>이다.
+<br /><br /></p>
+
+<h2 id="1988-1990--퍼징의-탄생">1988-1990 — 퍼징의 탄생</h2>
+
+<p>Barton Miller가 폭풍우로 인한 모뎀 잡음 때문에 유닉스 명령어들이
+줄줄이 죽는 걸 보고, “그럼 일부러 무작위 입력을 넣어보자”는 과제를 냈다.<br />
+여기서 ‘fuzz’라는 말과 개념이 시작됐다. 이때는 <strong>순수 블랙박스 무작위</strong> — 그냥 쓰레기 입력
+던지기였다.
+<br /><br /></p>
+
+<hr />
+<h2 id="2000년대--형식을-아는-퍼저-생성-기반">2000년대 — 형식을 아는 퍼저 (생성 기반)</h2>
+
+<p>무작위만으로는 복잡한 파일 형식(네트워크 프로토콜, 문서 포맷)의 깊은 곳을 못 건드린다는
+한계가 드러났다. 그래서 <strong>Peach</strong> 같은, 입력의 문법·구조를 사람이 정의해주는 <strong>생성
+기반</strong> 퍼저가 등장했다.<br />
+똑똑하지만 형식마다 사람이 모델을 짜줘야 해서 손이 많이 갔다.
+<br /><br /></p>
+
+<hr />
+<h2 id="2014-2016--커버리지-가이드-혁명-현대-퍼징의-분기점">2014-2016 — 커버리지 가이드 혁명 (현대 퍼징의 분기점)</h2>
+
+<ul>
+  <li>
+    <p><strong>AFL (2014)</strong> 이 등장했다. 핵심은 두 가지다. 빠른 실행을 위한 <strong>*포크서버</strong>와, 새
+코드를 건드린 입력을 살려두고 진화시키는 <strong>커버리지 피드백</strong>. 형식을 몰라도 사람이
+모델을 안 짜도 <strong>알아서 깊은 코드로 침투</strong>한다는 사실은 보안 업계를 크게 뒤흔들었다.</p>
+
+    <blockquote>
+      <p><strong>*포크서버(fork server)</strong><br />
+프로그램을 <code class="language-plaintext highlighter-rouge">main()</code> 직전, 즉 초기화까지 끝난
+상태까지만 한 번 켜두고, 입력이 올 때마다 그 상태를 <strong>복제(fork)</strong> 해서 실행하는
+기법. 복사기를 미리 예열·세팅해두고 버튼만 누르는 셈이라 입력마다 프로그램을
+처음부터 켜는 것보다 훨씬 빠르다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p><strong>libFuzzer (2015-2016)</strong> 가 LLVM(C/C++ 컴파일러 모음 프로젝트)에 들어왔다. AFL이
+프로그램을 통째로 fork한다면, libFuzzer는 <strong>*인프로세스 영속</strong> 방식으로 함수 하나를
+초고속으로 두드리는 방향을 제시했다.</p>
+
+    <blockquote>
+      <p><strong>*인프로세스 영속(in-process persistent)</strong><br />
+프로그램을 한 번만 켜둔 채, 같은
+프로세스 안에서 검사 함수만 수백만 번 반복 호출하는 방식. 식당에 비유하면 손님마다
+문을 닫았다 다시 여는 게 아니라 <strong>문을 열어둔 채 주문만 계속 받는 것</strong>이다. 압도적으로
+빠르지만 앞 손님이 흘린 게 남으면(전역 변수 오염, 메모리 누수) 다음 검사가
+오염된다는 단점이 있다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p><strong>Honggfuzz</strong> 도 이 시기 자리를 잡으며 하드웨어 추적 같은 다른 측정법을 탐구했다.
+<br /><br /></p>
+  </li>
+</ul>
+
+<hr />
+<h2 id="2016-2019--벽-넘기와-적용-범위-확장">2016-2019 — “벽 넘기”와 적용 범위 확장</h2>
+
+<p>커버리지 가이드도 한 가지 큰 벽에 막혔다. 바로 <strong>마법의 바이트 문제</strong>이다.</p>
+
+<blockquote>
+  <p><strong>마법의 바이트(magic bytes) 문제</strong><br />
+프로그램에 <code class="language-plaintext highlighter-rouge">if (입력 == "OPEN")</code> 같은 코드가
+있으면, 무작위 변형으로 정확히 <code class="language-plaintext highlighter-rouge">O-P-E-N</code> 4글자를 맞출 확률은 사실상 0이다. 금고
+다이얼을 아무리 돌려도 안 열리는 것과 같다. 커버리지가 여기서 막혀버린다.</p>
+</blockquote>
+
+<p>이를 뚫는 기법들이 쏟아졌다. 비교를 잘게 쪼개는 <strong>laf-intel</strong>, 비교하는 값을 몰래
+엿보는 <strong>RedQueen/CmpLog</strong>(아래 AFL++에서 자세히 설명) 같은 것들이다. 동시에 소스 없는
+바이너리나 Windows(WinAFL) 등으로 적용 범위도 넓어졌다.
+<br /><br /></p>
+
+<hr />
+<h2 id="2019-2022--포크fork의-시대와-특수화">2019-2022 — 포크(fork)의 시대와 특수화</h2>
+
+<p>원조 AFL 개발이 멈추자 커뮤니티가 <strong>AFL++</strong> 로 모든 최신 기법을 통합했다. 한편 소스
+없는 Windows/macOS 바이너리를 위한 <strong>Jackalope</strong>, JavaScript 엔진 전용 <strong>Fuzzilli</strong>
+처럼 <strong>특정 영역에 특화된 퍼저</strong>들이 갈라져 나왔다.
+<br /><br /></p>
+
+<hr />
+<h2 id="2022-2026--프레임워크화">2022-2026 — 프레임워크화</h2>
+
+<p>libFuzzer가 유지보수 전용 모드로 빠지고, “퍼저를 처음부터 만들지 말고 <strong>부품을 조립해
+내 상황에 맞는 퍼저를 만들자</strong>“라는 흐름이 강해졌다. AFL++ 팀의 Rust 기반 <strong>LibAFL</strong>,
+libFuzzer 원작자들이 옮겨간 <strong>Centipede</strong> 가 이 방향이다.</p>
+
+<p><strong>무작위(80년대) → 형식 모델(생성, 2000년대) → 커버리지 가이드 진화(2014~) → 벽 넘기·특수화(~2019) → 조립식 프레임워크(현대)</strong>
+<br /><br /></p>
+
+<hr />
+<hr />
+
+<h1 id="3-현대의-주요-퍼저들--동작-방식과-장단점">3. 현대의 주요 퍼저들 — 동작 방식과 장단점</h1>
+<p><br />
+퍼저들의 개성은 사실상 아래 세 가지 질문에 어떻게 답하느냐에서 갈린다.</p>
+
+<ol>
+  <li>코드 커버리지를 <strong>어떻게 측정</strong>하나? (계측 방식)</li>
+  <li>대상 프로그램을 <strong>어떻게 실행</strong>하나? (실행 방식)</li>
+  <li>마법의 바이트 같은 <strong>벽을 어떻게 뚫나</strong>? (변형 전략)
+<br /><br /></li>
+</ol>
+
+<hr />
+<h2 id="-afl--포크서버--비트맵의-변형-머신">① AFL++ — “포크서버 + 비트맵”의 변형 머신</h2>
+
+<p>원조 AFL은 Michał “lcamtuf” Zalewski가 만들어 오랫동안 사실상의 표준으로 군림했지만
+2017년 이후 개발이 멈췄다. 그 자리를 커뮤니티 포크인 <strong>AFL++(AFLplusplus)</strong> 가 이어받아
+지금은 <strong>2026년에도 계속 릴리스가 나오는</strong> 가장 활발하고 기능이 풍부한 퍼저다.
+<br /><br /></p>
+
+<h3 id="1-동작-방식">(1) 동작 방식</h3>
+<p>입력을 보통 <strong>파일이나 표준입력으로 통째로</strong> 먹여 프로그램 전체를
+퍼징한다. 실행은 앞서 설명한 <strong>포크서버</strong>로 빠르게 처리한다. 커버리지는 컴파일할 때
+코드에 도장 찍는 장치를 심어, “어느 블록에서 어느 블록으로 넘어갔나(엣지)”를 <strong>비트맵
+(통과 흔적을 켜고 끄는 표)</strong> 에 기록한다.
+<br /><br /></p>
+
+<h3 id="2-벽-넘기-차별점">(2) 벽 넘기 (차별점)</h3>
+
+<blockquote>
+  <p>AFL++가 원조보다 강한 이유는 다음과 같다.<br />
+<strong>CmpLog / RedQueen</strong><br />
+프로그램이 비교하는 값을 <strong>몰래 엿봐서</strong> 그 값을 입력에 그대로
+베껴 넣는 기법. 금고가 뭐랑 비교하는지 훔쳐보고 그 답을 바로 입력하는 셈. 마법의
+바이트 문제를 정면 돌파한다.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>laf-intel</strong><br />
+<code class="language-plaintext highlighter-rouge">입력 == "OPEN"</code>처럼 4글자를 한 번에 비교하는 코드를 <strong>글자별 4단계
+비교로 쪼개서</strong>, “O는 맞았다”는 중간 피드백을 받게 만든다.<br />
+4자리 자물쇠를 1자리 자물쇠 4개로 분해하는 셈.
+<br /><br /></p>
+</blockquote>
+
+<h3 id="3-변형-전략">(3) 변형 전략</h3>
+<blockquote>
+  <p>AFL 계열은 변형을 단계별로 한다.</p>
+
+  <ul>
+    <li><strong>havoc</strong><br />
+직역하면 “대혼돈”. 입력에 비트 뒤집기·바이트 삽입/삭제·숫자 갈아끼우기 등
+여러 무작위 변형을 <strong>한꺼번에 마구잡이로</strong> 가하는 단계.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <ul>
+    <li><strong>splicing</strong><br />
+“이어붙이기”. 코퍼스에 모아둔 <strong>서로 다른 두 입력의 앞·뒤를 잘라 붙여</strong>
+새 입력을 만드는 변형. 유전 알고리즘의 교배(crossover)에 해당한다.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>소스가 없을 때는 두 가지 모드로 대응한다.</p>
+</blockquote>
+
+<blockquote>
+  <ul>
+    <li><strong>QEMU 모드</strong><br />
+QEMU는 원래 CPU 에뮬레이터(다른 환경의 프로그램을 흉내 내서
+실행해주는 소프트웨어)다. 소스가 없어 컴파일 시 계측을 못 박은 바이너리를 이 에뮬레이터
+위에서 돌리며 <strong>실행 중에 커버리지를 가로채는</strong> 방식. 가능하지만 에뮬레이션 탓에 느리다.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <ul>
+    <li><strong>Frida 모드</strong><br />
+Frida는 실행 중인 프로그램에 코드를 슬쩍 끼워 넣는(hooking) 도구.
+QEMU와 달리 프로그램을 <strong>진짜 CPU에서 그대로 돌리면서</strong> 필요한 지점에만 후크를 걸어
+계측한다. Windows·macOS·모바일 등 이식성이 좋은 편이다.</li>
+  </ul>
+</blockquote>
+
+<h3 id="4-장점">(4) 장점</h3>
+<p>변형·벽넘기 기법이 가장 풍부하고, 소스 유무를 가리지 않으며, 사실상 표준이라
+자료와 커뮤니티가 두텁다.
+<br /><br /></p>
+
+<h3 id="5-단점">(5) 단점</h3>
+<p>옵션이 방대해 학습 곡선이 있고, 기본 강점은 리눅스 환경에 맞춰져 있다.
+<br /><br /></p>
+
+<hr />
+<h2 id="-libfuzzer--한-함수만-같은-프로세스에서-초고속">② libFuzzer — “한 함수만, 같은 프로세스에서” 초고속</h2>
+
+<p>LLVM에 내장된 퍼저다. 사용자가 검사할 함수를 감싸는 작은 <strong>하니스</strong>를 작성하면, libFuzzer가
+<strong>인프로세스 영속</strong> 방식으로 그 함수만 수백만 번 반복 호출한다.</p>
+
+<h3 id="1-동작-방식의-차이">(1) 동작 방식의 차이</h3>
+<p>AFL++가 프로그램을 통째로 fork해 돌린다면, libFuzzer는 함수 하나를
+같은 프로세스에서 두드린다. 그래서 압도적으로 빠르지만, 대상 함수가 <strong>상태를 남기지
+않아야</strong> 하고 중간에 프로그램을 종료시키면 안 된다(한 셰프가 자리를 안 뜨고 소스 수백
+가지를 연속 시식하는 격이라, 한 번 배탈 나면 그 뒤가 다 망가진다). 새니타이저(ASan 등)와
+<strong>한 몸처럼</strong> 묶여 동작하는 것도 특징이다.</p>
+
+<h3 id="3-현재-상태">(3) 현재 상태</h3>
+<p>원 개발자들이 작업을 멈추고 <strong>Centipede</strong> 라는 새 엔진으로 옮겨갔고,
+<strong>2022년 말부터 유지보수 전용 모드</strong>라 새 기능은 추가되지 않는다. 다만 설치·사용이 쉽고
+지원 범위가 넓어 당분간은 계속 유지된다.</p>
+
+<h3 id="4-장점-1">(4) 장점</h3>
+<p>매우 빠르고, 라이브러리 함수(API)를 정조준하기 좋으며, 시작이 쉽다.</p>
+
+<h3 id="5-단점-1">(5) 단점</h3>
+<p>하니스를 직접 짜야 하고, 인프로세스라 깨지기 쉬우며, 사실상 신규 개발은 멈췄다.
+<br /><br /></p>
+
+<hr />
+<h2 id="-honggfuzz--하드웨어가-커버리지를-대신-기록">③ Honggfuzz — “하드웨어가 커버리지를 대신 기록”</h2>
+
+<p>구글의 Robert Swiecki가 만들었다. 커버리지를 얻는 방법이 독특한데, 소프트웨어 계측뿐
+아니라 <strong>CPU 자체의 추적 기능</strong>을 활용할 수 있다.</p>
+
+<blockquote>
+  <h3 id="1-intel-pt-processor-trace">(1) Intel PT (Processor Trace)</h3>
+  <p><strong>인텔 CPU에 내장된 실행 추적 기능.</strong>
+비행기 블랙박스처럼
+CPU가 실행한 모든 분기를 알아서 기록해준다. 덕분에 소스 없는 바이너리도 별도 계측 없이
+커버리지를 뽑을 수 있다.</p>
+</blockquote>
+
+<p><strong>장점</strong><br />
+소스 없이 커버리지 확보 가능, 멀티코어·멀티스레드 확장성이 좋다.</p>
+
+<p><strong>단점</strong><br />
+Intel PT는 인텔 CPU 기능이라 AMD·ARM(애플 실리콘)·구형에서는 제약이 있고,
+하드웨어가 토해낸 추적 로그를 퍼저용 형태로 가공하는 비용이 크다.</p>
+
+<blockquote>
+  <p><strong>“하드웨어 추적이 그렇게 좋으면 왜 다들 안 쓰지?”</strong>. 
+좋은 질문이다. 측정이 공짜처럼
+보여도 <strong>해석이 비싸서</strong>, 실제 퍼징 속도(초당 실행 횟수)는 컴파일 시 계측이 더 빠른
+경우가 많다. 무엇보다 <strong>소스가 있으면</strong> 컴파일 시 계측이 더 정확하고 새니타이저와도
+깔끔하게 결합된다. 하드웨어 추적은 <em>소스가 없을 때 빛나는 비상수단</em>이지, 모든 상황에서
+우월한 만능 해법은 아니다. “더 좋은 측정법”이 아니라 “상황마다 맞는 측정법”이 다른 것.
+<br /><br /></p>
+</blockquote>
+
+<hr />
+<h2 id="-jackalope--열-수-없는-기계에-실행-중-스티커-붙이기">④ Jackalope — “열 수 없는 기계에 실행 중 스티커 붙이기”</h2>
+
+<p>Google Project Zero의 Ivan Fratric이 만든, 소스가 아예 없는 <strong>완성된 바이너리</strong>를 위한
+퍼저다. 대부분의 커버리지 가이드 퍼저가 소스를 요구하는 데 반해, 특히 Windows·macOS의
+폐쇄 소프트웨어를 겨냥한다(현재 Windows·macOS·Linux·Android 지원).</p>
+
+<h3 id="1-동작-방식-핵심-차별점">(1) 동작 방식 (핵심 차별점)</h3>
+<p>AFL·libFuzzer가 컴파일할 때 계측 장치를 심는다면, Jackalope는
+<strong>동적 바이너리 계측</strong> 으로 접근한다.</p>
+
+<p><strong>동적 바이너리 계측(DBI)</strong><br />
+소스 없이 이미 완성된 바이너리를, 실행되는 도중에 살짝 고쳐 추적 스티커를 붙이는 기법. 밀봉돼서 열 수 없는 기계에 돌아가는 도중 바깥에서 센서를 붙이는 격이다.   Jackalope는 <strong>TinyInst</strong> 라는 도구로 이를 수행한다.</p>
+
+<h3 id="2-설계-차별점">(2) 설계 차별점</h3>
+<p>Jackalope는 완성된 도구라기보다 <strong>부품을 갈아끼우는 프레임워크</strong>에 가깝다.
+<code class="language-plaintext highlighter-rouge">Fuzzer</code> 클래스를 상속해 변이기·계측·입력 전달 방식을 직접 바꿔 끼운다. 그래서 <strong>기본
+변이기는 일반적인 것만 제공</strong>하고, 타깃에 맞는 변이기는 사용자가 짜라고 권한다(AFL이
+변형 기법을 한가득 내장한 것과 정반대 철학). 처음부터 <strong>서버-클라이언트 분산</strong> 구조라
+여러 머신에 뿌리기도 쉽다.</p>
+
+<h3 id="3-장점">(3) 장점</h3>
+<p>소스 없는 Windows/macOS 바이너리라는, 다른 퍼저가 약한 영역을 채운다. 모듈식이라
+커스터마이즈 자유도가 높다.</p>
+
+<h3 id="4-단점">(4) 단점</h3>
+<p>기본 변이 전략이 빈약해 직접 짜야 하고, 그만큼 손이 많이 가며 진입장벽이 있다.
+<br /><br /></p>
+
+<hr />
+<h2 id="-libafl--centipede--차세대-흐름">⑤ LibAFL / Centipede — 차세대 흐름</h2>
+
+<p><strong>LibAFL</strong> 은 AFL++ 팀이 만든 Rust 기반 “퍼저 조립 키트”로, libFuzzer가 유지보수 모드로
+빠지면서 떠오르는 차세대 표준이다. <strong>Centipede</strong> 는 libFuzzer 원작자들이 옮겨간 엔진이다.
+지금은 “앞으로의 방향” 정도로만 알아둬도 충분하다.
+<br /><br /></p>
+
+<hr />
+<h2 id="-domato--fuzzilli--변형이-아니라-작문">⑥ Domato / Fuzzilli — “변형”이 아니라 “작문”</h2>
+
+<p>위 퍼저들이 <em>기존 입력을 망가뜨리는</em> 변형 기반이라면, 이들은 <strong>문법을 보고 유효한 입력을
+처음부터 생성</strong>한다. <strong>Domato</strong> 는 브라우저 DOM/HTML용, <strong>Fuzzilli</strong> 는 JavaScript
+엔진용이다. JS 엔진처럼 입력 규칙이 너무 빡빡해 무작위로 망가뜨리면 “문법 오류”로 바로
+튕겨 나가는 대상에 쓴다. <br />
+Fuzzilli는 한술 더 떠 중간 언어(IL)로 <strong>실행 가능한 JS
+프로그램</strong>을 만들어낸다.
+<br /><br /></p>
+
+<hr />
+<h2 id="한-가지-정정-googlefuzzing-은-퍼저가-아니다">한 가지 정정: <code class="language-plaintext highlighter-rouge">google/fuzzing</code> 은 퍼저가 아니다</h2>
+
+<p>자료를 찾다 보면 <code class="language-plaintext highlighter-rouge">google/fuzzing</code> 레포를 만나는데, 이건 <em>퍼저가 아니라</em> 구글이 모아둔
+<strong>퍼징 가이드·튜토리얼·사전(dictionary)·모범 사례 모음집</strong>이다. 
+실제로 대규모 퍼징을 돌리는 인프라는 <strong>OSS-Fuzz</strong>(오픈소스 자동 퍼징 서비스)와 <strong>ClusterFuzz</strong> 다. 이걸
+“도구”로 소개하면 틀리니 주의할 것.
+<br /><br /></p>
+
+<hr />
+<hr />
+
+<h1 id="마치며">마치며</h1>
+
+<p>퍼징을 한 문장으로 줄이면 <strong>“예상 밖 입력을 자동으로 대량 투입해 버그를 찾는 기법”</strong>
+이고, <br />
+현대 퍼징의 뼈대는 <strong>커버리지 가이드 그레이박스 변형 퍼징</strong>이다.</p>
+
+<p>퍼저들은 같은 원리를 서로 다르게 구현한 것에 불과하다.</p>
+<ul>
+  <li>libFuzzer는 <em>한 함수를 인프로세스로 초고속</em></li>
+  <li>AFL++는 <em>프로그램 전체를 포크서버로 다재다능하게</em></li>
+  <li>Honggfuzz는 <em>하드웨어 추적으로</em></li>
+  <li>Jackalope는 <em>소스 없는 바이너리를 동적 계측으로</em> 
+푼다는 게 본질적 차이였다. <br />
+그래서 “어느 게 제일 좋냐”는 질문보다 <strong>“내 상황(소스 유무, OS, 입력 구조)에
+무엇이 맞냐”</strong> 가 올바른 질문이다.
+<br /><br /></li>
+</ul>
+
+<hr />
+<h2 id="참고-링크">참고 링크</h2>
+
+<ul>
+  <li><a href="https://github.com/AFLplusplus/AFLplusplus">AFL++</a></li>
+  <li><a href="https://github.com/googleprojectzero/Jackalope">Jackalope</a></li>
+  <li><a href="https://github.com/google/fuzzing">google/fuzzing (가이드·자료 모음)</a></li>
+  <li><a href="https://llvm.org/docs/LibFuzzer.html">LLVM libFuzzer 문서</a></li>
+</ul>
+
+  </div></div>
+
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leesomin7747" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://instagram.com/liicowmin" target="_blank">
+          <li>
+            <i class="icon-instagram"></i>
+          </li>
+        </a><a href="mailto:leesomin7747@naver.com" target="_blank">
+          <li>
+            <i class="icon-mail-alt"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2026</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

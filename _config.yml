@@ -65,3 +65,7 @@ plugins:
 #  - jekyll-feed
 
 destination: docs
+
+markdown: kramdown
+kramdown:
+  input: GFM

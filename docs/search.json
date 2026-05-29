@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "퍼징(Fuzzing) 입문: 개념부터 주요 퍼저들의 동작 방식 비교까지",
+      "title-lower"    : "퍼징(fuzzing) 입문: 개념부터 주요 퍼저들의 동작 방식 비교까지",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "BlogDocs",
+      "tags"     : "fuzzing, security, afl, libfuzzer, jackalope, honggfuzz",
+      "url"      : "/blog/docs/2026/05/29/fuzzing.html",
+      "date"     : "2026-05-29 00:00:00 +0900",
+      "content"     : "보안 교육 미션으로 퍼징(fuzzing) 을 공부하게 됐다. 처음 듣는 단어였고 보안·CS기초도 탄탄하지 않은 입장이라, “도대체 이게 뭐고 왜 중요한지”, “퍼저(fuzzer)들은서로 뭐가 다른지”를 바닥부터 파보기로 했다. 이 글은 그 과정에서 정리한 내용이다.전문 용어는 처음 나올 때마다 바로바로 풀어서 붙였으니, 사전 지식이 없어도 따라올 수있..."
+    } ,
+  
+    {
       "title"    : "Git 배우기",
       "title-lower"    : "git 배우기",
       "sub-titile" : "",
@@ -93,7 +105,7 @@
       "tags"     : "",
       "url"      : "/blog/docs/2025/04/03/docs.html",
       "date"     : "2025-04-03 15:11:36 +0900",
-      "content"     : "이곳에 그동안 작성한 학술 블로그 또는 문서를 기록합니다.Blog &amp;amp; Technical Documentation  Bandit WriteUp 작성  "
+      "content"     : "이곳에 그동안 작성한 학술 블로그 또는 문서를 기록합니다.Blog &amp;amp; Technical Documentation  Bandit WriteUp 작성.  Fuzzing.  my-notion."
     } ,
   
     {

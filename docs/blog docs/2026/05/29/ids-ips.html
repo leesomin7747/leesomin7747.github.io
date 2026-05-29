@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>IDS/IPS 입문: 침입 탐지·방지 시스템의 동작 원리와 주요 도구 비교</title>
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>IDS/IPS 입문: 침입 탐지·방지 시스템의 동작 원리와 주요 도구 비교 | Somin’s Blog</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="IDS/IPS 입문: 침입 탐지·방지 시스템의 동작 원리와 주요 도구 비교" />
+<meta name="author" content="leesomin" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta name="twitter:description" property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="http://localhost:4000/blog%20docs/2026/05/29/ids-ips.html" />
+<meta property="og:url" content="http://localhost:4000/blog%20docs/2026/05/29/ids-ips.html" />
+<meta property="og:site_name" content="Somin’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-29T11:00:00+09:00" />
+<meta property="article:modified_time" content="2026-05-29T11:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="IDS/IPS 입문: 침입 탐지·방지 시스템의 동작 원리와 주요 도구 비교" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"leesomin"},"dateModified":"2026-05-29T11:00:00+09:00","datePublished":"2026-05-29T11:00:00+09:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"IDS/IPS 입문: 침입 탐지·방지 시스템의 동작 원리와 주요 도구 비교","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog%20docs/2026/05/29/ids-ips.html"},"url":"http://localhost:4000/blog%20docs/2026/05/29/ids-ips.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/portfolio.png" alt="Lee Somin" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Lee Somin</a>
+      </h2>
+      </div><p class="tagline">Developer / Student of USW</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://github.com/leesomin7747" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://instagram.com/liicowmin" target="_blank">
+          <li>
+            <i class="icon-instagram"></i>
+          </li>
+        </a><a href="mailto:leesomin7747@naver.com" target="_blank">
+          <li>
+            <i class="icon-mail-alt"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2026</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/blog%20docs/2026/05/29/ids-ips.html">
+    <h2 class="post-title">IDS/IPS 입문: 침입 탐지·방지 시스템의 동작 원리와 주요 도구 비교</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>May 29, 2026</div><ul class="post-categories"><li>Blog Docs</li></ul></div>
+  <div class="post">
+    <p><br /></p>
+
+<hr />
+<p><br /></p>
+
+<h2 id="1-idsips의-의미와-정의-유형-알아야-할-개념들">1. IDS/IPS의 의미와 정의, 유형, 알아야 할 개념들</h2>
+<h2 id="2-침입-탐지-기술의-역사와-발전-과정">2. 침입 탐지 기술의 역사와 발전 과정</h2>
+<h2 id="3-현대의-주요-도구-소개와-차이점-동작-방식-중심-장단점-포함">3. 현대의 주요 도구 소개와 차이점 (동작 방식 중심, 장단점 포함)</h2>
+<p><br /></p>
+
+<hr />
+
+<h1 id="1-ids와-ips란-무엇인가">1. IDS와 IPS란 무엇인가</h1>
+
+<h2 id="한-줄-정의">한 줄 정의</h2>
+
+<blockquote>
+  <p><strong>IDS(Intrusion Detection System, 침입 탐지 시스템)</strong><br />
+네트워크나 시스템을 감시하다가 의심스러운 활동을 발견하면 <strong>경보를 울리는</strong> 시스템.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>IPS(Intrusion Prevention System, 침입 방지 시스템)</strong><br />
+한발 더 나아가 위협을 실시간으로 <strong>직접 차단하는</strong> 시스템.</p>
+</blockquote>
+
+<p>가장 쉬운 비유는 이렇다. <strong>IDS는 CCTV, IPS는 경비원</strong>이다. CCTV(IDS)는 수상한 사람을
+녹화하고 경보를 울리지만 직접 막지는 못한다. 경비원(IPS)은 수상한 사람을 몸으로 막아
+들여보내지 않는다. 즉 <strong>IDS = 탐지·경보, IPS = 탐지 + 차단</strong>이 핵심 차이다.
+<br /><br /></p>
+
+<hr />
+<h2 id="ids와-ips의-차이">IDS와 IPS의 차이</h2>
+
+<p>이 비유는 곧 <strong>설치 위치의 차이</strong>로 이어진다.</p>
+
+<blockquote>
+  <p><strong>패시브(passive) 방식</strong><br />
+IDS의 기본. 실제 트래픽이 지나가는 길 옆에서 트래픽을
+<strong>복사본으로 받아</strong> 구경한다(SPAN 포트나 TAP 장비를 이용). 길 위에 서 있지 않으니
+고장 나거나 느려도 네트워크 자체엔 영향이 없다.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>인라인(inline) 방식</strong><br />
+IPS의 기본. 트래픽이 <strong>반드시 통과해야 하는 길목</strong> 한가운데
+놓인다. 그래야 나쁜 패킷을 그 자리에서 떨궈버릴(drop) 수 있다. 대신 이 장비가 멈추면
+네트워크도 멈추고, 잘못 판단하면 멀쩡한 트래픽까지 끊긴다.
+<br /><br /></p>
+</blockquote>
+
+<hr />
+<h2 id="필요한-이유">필요한 이유</h2>
+
+<p>방화벽이 “누가 들어올 수 있는지”를 정하는 <strong>출입문</strong>이라면, IDS/IPS는 일단 들어온
+트래픽의 <strong>내용물까지 들여다보는 검색대</strong>다. 정상적인 출입문(포트)으로 들어온 트래픽
+안에 숨은 공격(예: 정상 웹 요청처럼 위장한 해킹 시도)은 방화벽만으로는 못 거른다.
+IDS/IPS는 그 패킷의 <strong>속을 깊이 검사</strong>해서 공격을 찾아낸다.</p>
+
+<blockquote>
+  <p><strong>DPI(Deep Packet Inspection, 심층 패킷 검사)</strong><br />
+패킷의 겉봉(주소·포트)만 보는 게
+아니라, 안에 담긴 실제 내용(payload)까지 뜯어보는 것. “주소만 확인하고 통과시키는
+것”과 “소포를 열어 내용물까지 검사하는 것”의 차이다.
+<br /><br /></p>
+</blockquote>
+
+<hr />
+<h2 id="동작의-핵심-흐름">동작의 핵심 흐름</h2>
+
+<p>IDS/IPS는 결국 아래를 반복한다.</p>
+
+<ol>
+  <li><strong>수집</strong> — 네트워크 패킷이나 시스템 로그를 모은다</li>
+  <li><strong>분석</strong> — 모은 데이터를 탐지 규칙·정상 패턴과 대조한다</li>
+  <li><strong>판단</strong> — 공격으로 의심되는지 결정한다</li>
+  <li><strong>대응</strong> — IDS는 <strong>경보</strong>를 보내고, IPS는 추가로 <strong>차단</strong>한다
+<br /><br /></li>
+</ol>
+
+<hr />
+<h2 id="유형">유형</h2>
+
+<h3 id="1-설치-위치">(1) 설치 위치</h3>
+
+<ul>
+  <li><strong>NIDS / NIPS (네트워크 기반)</strong>
+  네트워크 길목에서 오가는 패킷 전체를 감시한다. 망 전반을 한눈에 보지만, 암호화된 트래픽은 들여다보기 어렵다.</li>
+  <li><strong>HIDS / HIPS (호스트 기반)</strong><br />
+  특정 서버·PC <strong>안에</strong> 설치돼 그 기기의 로그, 파일 변경, 프로세스 등을 감시한다. 그 기기는 깊이 보지만 망 전체는 못 본다.</li>
+</ul>
+
+<p>비유하면 NIDS는 <em>건물 복도의 CCTV</em>, HIDS는 <em>각 방 안에 설치된 감지기</em>다. 보통 둘을 함께
+써서 사각지대를 줄인다.
+<br /><br /></p>
+
+<hr />
+<h3 id="탐지-방식">탐지 방식</h3>
+
+<ul>
+  <li>
+    <p><strong>시그니처 기반 (지식 기반)</strong><br />
+  알려진 공격의 “지문(패턴)” 목록과 대조한다. 지명수배 전단지로 범인을 찾는 방식. 알려진 공격엔 정확하고 빠르지만, <strong>처음 보는 공격(제로데이)은 전단지에 없으니 못 잡는다.</strong></p>
+
+    <blockquote>
+      <p><strong>시그니처(signature)</strong><br />
+특정 공격에만 나타나는 고유한 패턴(특정 바이트 열, 문자열
+등). 이걸 모아둔 게 “룰(rule)”이고, IDS/IPS는 룰 목록과 트래픽을 끊임없이 대조한다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p><strong>이상 탐지 (행위 기반)</strong><br />
+“평소 정상 상태”를 먼저 학습해두고, 거기서 벗어나면
+의심한다. 단골손님 얼굴을 외운 가게 주인이 낯선 사람을 바로 알아채는 방식. <strong>새로운
+공격도 잡을 수 있지만, 평소와 다르기만 해도 알람이 울려 오탐이 많다.</strong></p>
+  </li>
+  <li>
+    <p><strong>상태 기반 프로토콜 분석</strong><br />
+  통신 규약(프로토콜)의 “정상적인 대화 순서”를 알고 있다가, 순서를 어기는 비정상 흐름을 잡아내는 방식. 위 둘의 중간 성격이다.
+<br /><br /></p>
+  </li>
+</ul>
+
+<hr />
+<h2 id="알아야-할-핵심-개념들">알아야 할 핵심 개념들</h2>
+
+<p>IDS/IPS를 이해하는 데 가장 중요한 두 단어는 <strong>오탐과 미탐</strong>이다.</p>
+
+<blockquote>
+  <p><strong>오탐(False Positive)</strong><br />
+정상인데 공격이라고 <strong>잘못 울린</strong> 경보. “양치기 소년” 문제.
+오탐이 많으면 보안 담당자가 알람에 무뎌지고,<br />
+특히 IPS에서는 <strong>멀쩡한 트래픽을 끊어</strong>
+서비스 장애를 일으킨다.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>미탐(False Negative)</strong><br />
+공격인데 <strong>놓친</strong> 경우. 진짜 위험을 막지 못한 것이라 더
+치명적일 수 있다.</p>
+</blockquote>
+
+<p>이 둘은 <strong>시소 관계</strong>다. 탐지를 빡빡하게 하면 미탐은 줄지만 오탐이 늘고, 느슨하게 하면
+반대가 된다.<br />
+그래서 현장의 IDS/IPS 운영은 사실상 <strong>이 둘의 균형을 맞추는 튜닝 작업</strong>이다.
+특히 IPS는 차단이 곧 장애로 이어지므로, 확실한 공격만 막도록 보수적으로 설정하는 경우가
+많다.
+<br /><br /></p>
+
+<hr />
+<h2 id="활용-방법">활용 방법</h2>
+
+<ul>
+  <li><strong>탐지(IDS)부터, 차단(IPS)은 신중하게</strong><br />
+  도입 초기엔 IPS도 일단 탐지 모드로만 돌려 오탐을 충분히 걸러낸 뒤, 신뢰가 쌓인 룰만 차단으로 전환하는 경우가 많다.</li>
+  <li>
+    <p><strong>SIEM과 연계</strong><br />
+  IDS/IPS가 쏟아내는 경보를 <strong>SIEM</strong>에 모아 다른 로그와 함께 상관 분석한다.</p>
+
+    <blockquote>
+      <p><strong>SIEM(Security Information and Event Management)</strong><br />
+여러 보안 장비의 로그·경보를
+한곳에 모아 연관 지어 분석하는 관제 시스템. IDS/IPS는 그 SIEM에 정보를 공급하는
+중요한 센서 역할을 한다.</p>
+    </blockquote>
+  </li>
+  <li><strong>다른 방어와 겹쳐 쌓기</strong><br />
+  방화벽, 안티바이러스 등과 층층이 겹쳐 한 겹이 뚫려도 다음 겹이 막는 <strong>다층 방어(Defense in Depth)</strong> 의 한 층으로 배치한다.
+<br /><br /></li>
+</ul>
+
+<hr />
+<hr />
+
+<h1 id="2-침입-탐지-기술의-역사와-발전-과정-1">2. 침입 탐지 기술의 역사와 발전 과정</h1>
+
+<p><strong>“알려진 공격만 막기 → 모르는 공격까지, 탐지만 하기 →
+차단까지, 따로 놀던 장비 → 통합 보안 체계로”</strong>
+<br /><br /></p>
+
+<hr />
+<h2 id="1986-1987--이론의-탄생">1986-1987 — 이론의 탄생</h2>
+
+<p>SRI의 연구자 <strong>Dorothy Denning</strong> 이 1987년 “An Intrusion-Detection Model”이라는 기념비적
+논문을 발표했다(1986년 학회에서 첫 공개). “시스템의 사용 기록을 감시하면 비정상 패턴으로
+보안 침해를 탐지할 수 있다”는 발상으로, 오늘날 모든 IDS의 <strong>이론적 토대이자 이상 탐지의
+시초</strong>가 됐다.
+<br /><br /></p>
+
+<hr />
+<h2 id="1990년대--네트워크로-확장">1990년대 — 네트워크로 확장</h2>
+
+<p>초기 IDS는 한 컴퓨터의 로그를 보는 호스트 기반이었지만, 네트워크가 커지면서 <strong>오가는
+패킷 자체를 감시하는 네트워크 기반(NIDS)</strong> 으로 무대가 넓어졌다.
+<br /><br /></p>
+
+<hr />
+<h2 id="1998--snort-사실상의-표준이-되다">1998 — Snort, 사실상의 표준이 되다</h2>
+
+<p><strong>Martin Roesch</strong> 가 1998년 주말에 만든 작은 트래픽 분석 프로그램 <strong>Snort</strong> 가 오픈소스로
+공개됐다. 시그니처 기반 NIDS의 표준이 되며 폭발적으로 퍼졌고, 그는 2001년 <strong>Sourcefire</strong>
+라는 회사를 세웠다(이 회사는 2013년 <strong>Cisco에 27억 달러</strong>에 인수된다).
+<br /><br /></p>
+
+<hr />
+<h2 id="2000년대--탐지에서-방지ips로">2000년대 — 탐지에서 방지(IPS)로</h2>
+
+<p>“발견했으면 막기도 하자”는 요구가 커지며, 트래픽 길목에 인라인으로 서서 <strong>직접 차단하는
+IPS</strong> 가 등장했다. IDS와 IPS는 점차 한 제품의 두 모드로 합쳐졌다.
+<br /><br /></p>
+
+<hr />
+<h2 id="2009-2021--멀티스레드와-행위-분석의-부상">2009-2021 — 멀티스레드와 행위 분석의 부상</h2>
+
+<ul>
+  <li><strong>Suricata (2009)</strong><br />
+  비영리 단체 OISF가 만든 엔진. Snort와 룰 호환되면서도 <strong>여러 CPU 코어를 동시에 쓰는 멀티스레드</strong>로 고속 네트워크 대응력을 끌어올렸다.</li>
+  <li><strong>Zeek (옛 Bro)</strong><br />
+  단순 룰 매칭을 넘어, <strong>스크립트로 트래픽 행위를 분석하고 풍부한 로그를 남기는</strong> 방향을 제시했다. 차단보다는 깊은 관찰·기록에 특화됐다.
+<br /><br /></li>
+</ul>
+
+<hr />
+<h2 id="2021-2026--통합과-지능화">2021-2026 — 통합과 지능화</h2>
+
+<ul>
+  <li><strong>Snort 3 (2021년 1월 정식 출시)</strong><br />
+  C++로 새로 설계해 멀티스레드를 지원하고 룰 체계를 현대화했다. 구버전 Snort 2는 수명 종료 수순을 밟고 있다.</li>
+  <li><strong>통합</strong><br />
+  이제 IDS/IPS는 독립 장비라기보다 <strong>차세대 방화벽(NGFW)</strong>, 통합 위협 관리(UTM), <strong>NDR/XDR</strong>(네트워크/확장 탐지·대응) 같은 더 큰 보안 플랫폼의 한 기능으로 녹아든다.</li>
+  <li><strong>지능화</strong><br />
+  머신러닝 기반 이상 탐지가 발전하며, 1987년 Denning이 제시한 통계적 이상 탐지 아이디어가 더 정교한 형태로 되살아나고 있다.</li>
+</ul>
+
+<p><strong>이론(80년대) → 네트워크 시그니처(Snort, 90년대 말) → 차단(IPS, 2000년대) → 멀티스레드·행위분석(2009~) → 통합·ML(현대)</strong>
+<br /><br /></p>
+
+<hr />
+<hr />
+
+<h1 id="3-현대의-주요-도구들--동작-방식과-장단점">3. 현대의 주요 도구들 — 동작 방식과 장단점</h1>
+<p><br />
+도구들의 개성은 사실상 아래 세 가지 질문에 어떻게 답하느냐에서 갈린다.</p>
+
+<ol>
+  <li>공격을 <strong>어떻게 탐지</strong>하나? (시그니처 vs 행위 분석)</li>
+  <li>트래픽을 <strong>어떻게 처리</strong>하나? (단일 스레드 vs 멀티스레드)</li>
+  <li>탐지에서 끝내나, <strong>직접 차단</strong>하나? (IDS vs IPS)
+<br /><br /></li>
+</ol>
+
+<hr />
+<h2 id="-snort--시그니처-기반의-원조이자-표준">① Snort — 시그니처 기반의 원조이자 표준</h2>
+
+<p>네트워크 패킷을 받아 사람이 작성하거나 내려받은 <strong>룰(시그니처) 목록과 하나하나 대조</strong>해,
+일치하면 경보(IDS 모드)하거나 차단(IPS 모드)한다. 오랫동안 한 번에 하나씩 처리하는
+단일 스레드 구조였으나, <strong>Snort 3(2021)</strong> 부터 멀티스레드와 모듈식 구조로 재설계됐다.
+<br /><br /></p>
+
+<h3 id="1-장점">(1) 장점</h3>
+<p>가장 오래되고 자료·커뮤니티 룰이 방대하다. 가볍고 설정이 비교적 단순해 입문과 중소 규모 환경에 적합하다.</p>
+
+<h3 id="2-단점">(2) 단점</h3>
+<p>구버전의 단일 스레드 한계로 초고속 대용량 트래픽에선 성능이 달릴 수 있고, 시그니처
+기반이라 알려지지 않은 공격엔 약하다.
+<br /><br /></p>
+
+<hr />
+<h2 id="-suricata--멀티스레드의-고성능-후발주자">② Suricata — 멀티스레드의 고성능 후발주자</h2>
+
+<p>Snort와 룰 문법을 상당 부분 공유하면서도, <strong>여러 CPU 코어를 동시에 활용(멀티스레드)</strong> 해
+같은 하드웨어로 더 많은 트래픽을 처리한다. 심층 패킷 검사와 HTTP·TLS·DNS 같은 응용 계층
+프로토콜 분석이 강하고, 의심 파일을 끄집어내는 <strong>파일 추출</strong> 기능도 있다. 설정에 따라
+IDS·IPS·NSM 어느 쪽으로도 동작한다.</p>
+
+<blockquote>
+  <p><strong>NSM(Network Security Monitoring)</strong> — 차단이 목적이 아니라, 나중의 조사·분석을 위해
+네트워크 활동을 폭넓게 수집·기록하는 활동.
+<br /><br /></p>
+</blockquote>
+
+<h3 id="1-장점-1">(1) 장점</h3>
+<p>멀티스레드로 고속 네트워크에 강하고, 응용 계층 분석·파일 추출 등 기능이 풍부하다.</p>
+
+<h3 id="2-단점-1">(2) 단점</h3>
+<p>Snort보다 배포·운영이 까다롭고 커뮤니티 규모가 상대적으로 작다.
+<br /><br /></p>
+
+<hr />
+<h2 id="-zeek-옛-bro--차단보다-기록과-분석의-도구">③ Zeek (옛 Bro) — 차단보다 “기록과 분석”의 도구</h2>
+
+<p>Snort·Suricata가 “나쁜 패턴을 잡아 알리거나 막는” 데 초점을 둔다면, Zeek은 <strong>수동적으로
+트래픽을 관찰해 HTTP·DNS·TLS 등 상세 로그를 남기고</strong>, 이벤트 기반 스크립트 언어로 행위를
+분석한다. “이 패킷이 공격인가”보다 “이 네트워크에서 무슨 일이 벌어졌나”를 풍부하게
+기록하는 도구에 가깝다.
+<br /><br /></p>
+
+<h3 id="1-장점-2">(1) 장점</h3>
+<p>사후 조사(포렌식)와 위협 헌팅에 필요한 깊은 맥락 정보를 제공한다.</p>
+
+<h3 id="2-단점-2">(2) 단점</h3>
+<p><strong>차단(IPS) 기능이 없고 탐지·기록 전용</strong>이며, 학습 곡선이 가파르고 로그 저장 공간을
+많이 요구한다.
+<br /><br /></p>
+
+<hr />
+<h2 id="호스트-기반--ossec--wazuh">호스트 기반 — OSSEC / Wazuh</h2>
+
+<p>위 셋이 네트워크를 보는 NIDS 계열이라면, <strong>OSSEC</strong> 와 그 후속인 <strong>Wazuh</strong> 는 서버·PC 안에
+설치돼 로그·파일 변경·프로세스를 감시하는 <strong>호스트 기반(HIDS)</strong> 의 대표다. 네트워크 도구와
+함께 쓰면 사각지대를 메운다.
+<br /><br /></p>
+
+<hr />
+<hr />
+
+<h1 id="마치며">마치며</h1>
+
+<p>정리하면, <strong>IDS는 탐지·경보(CCTV), IPS는 탐지 + 차단(경비원)</strong> 이고, 둘은 <strong>설치 위치
+(패시브 vs 인라인)</strong> 에서 본질적으로 갈린다.<br />
+탐지 방식은 <strong>시그니처 기반(알려진 공격에
+정확)</strong> 과 <strong>이상 탐지(미지의 공격까지, 대신 오탐 多)</strong> 로 나뉘며, 현실에서는 둘을 섞고
+<strong>오탐과 미탐의 균형</strong>을 맞추는 튜닝이 운영의 핵심이다.</p>
+
+<p>도구로 보면</p>
+<ul>
+  <li>Snort는 <em>방대한 룰의 표준</em></li>
+  <li>Suricata는 <em>고속·고기능</em></li>
+  <li>Zeek은 <em>기록과 분석에 특화</em></li>
+</ul>
+
+<p>라는 특징이 뚜렷했다. 그래서 여기서도 “무엇이 제일 좋냐”보다 <strong>“내 환경(규모, 속도,
+차단 필요 여부)에 무엇이 맞냐”</strong> 가 올바른 질문이다.</p>
+
+<p><br /><br /></p>
+
+<hr />
+<h2 id="참고-링크">참고 링크</h2>
+
+<ul>
+  <li><a href="https://www.snort.org/">Snort</a></li>
+  <li><a href="https://suricata.io/">Suricata</a></li>
+  <li><a href="https://zeek.org/">Zeek</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Dorothy_E._Denning">Dorothy Denning, “An Intrusion-Detection Model” (1987)</a></li>
+</ul>
+
+  </div></div>
+
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/leesomin7747" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://instagram.com/liicowmin" target="_blank">
+          <li>
+            <i class="icon-instagram"></i>
+          </li>
+        </a><a href="mailto:leesomin7747@naver.com" target="_blank">
+          <li>
+            <i class="icon-mail-alt"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2026</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
